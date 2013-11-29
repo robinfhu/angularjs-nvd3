@@ -3,7 +3,8 @@ var nvApp = angular.module('nvApp',[]);
 /*
 Controller for the application.
 */
-nvApp.controller('PieChartController', ['$scope','randomDataService', function($scope,randomDataService) {
+nvApp.controller('PieChartController', 
+	['$scope','randomDataService', 'stateService',function($scope,randomDataService,stateService) {
 
 	$scope.newValue = 2;
 	$scope.title = "Pie Chart Widget";
@@ -13,6 +14,11 @@ nvApp.controller('PieChartController', ['$scope','randomDataService', function($
 	      y: 5
 	    }
 	  ];
+
+	$scope.currentState = stateService.getState();
+	$scope.updateState = function() {
+		$scope.currentState = stateService.getState();
+	}
 
 	$scope.pieRandomData = randomDataService();
 
@@ -40,7 +46,7 @@ nvApp.controller('PieChartController', ['$scope','randomDataService', function($
 }]);
 
 //Create a directive for <div nv-pie-chart>
-nvApp.directive('nvPieChart', function(){
+nvApp.directive('nvPieChart', ['stateService',function(stateService){
 	return {
 		restrict: 'A',
 		template: '<svg></svg>',
@@ -74,7 +80,9 @@ nvApp.directive('nvPieChart', function(){
 				          .attr('height', height)
 				          .call(chart);
 
-				    chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+				    chart.dispatch.on('stateChange', function(e) { 
+				    	stateService.setState(e);
+				    });
 
 				    return chart;
 				});
@@ -84,7 +92,7 @@ nvApp.directive('nvPieChart', function(){
 			
 		}
 	};
-});
+}]);
 
 
 //Directive that sets focus for an input box.
@@ -105,5 +113,17 @@ nvApp.factory('randomDataService', function() {
 		}
 
 		return data;
+	};
+});
+
+nvApp.factory('stateService', function() {
+	var state = {};
+	return {
+		setState: function(s) {
+			state = s;
+		},
+		getState: function() {
+			return JSON.stringify(state);
+		}
 	};
 });
