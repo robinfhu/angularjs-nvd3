@@ -28,7 +28,8 @@ text {
 <div ng-controller="PieChartController">
   <h2>{{title}}</h2>
   Enter a new value: <input ng-model="newValue" start-focus>
-  <button ng-click="addData(newValue)">Add Value</button>
+  <button ng-click="addData(newValue)">Add Value</button><br/>
+  Data items: {{outputData()}}
   <div nv-pie-chart chart-data="pieData" chart-width='300' chart-height='300'></div>
 </div>
 </html>

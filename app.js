@@ -19,10 +19,19 @@ nvApp.controller('PieChartController', function($scope) {
 		console.log('adding: ' + dataValue);
 		$scope.pieData.push({
 			key: 'Data ' + $scope.count,
-			value: dataValue
+			y: dataValue
 		});
 
 		$scope.count++;
+	};
+
+	$scope.outputData = function output() {
+		var result = '';
+		angular.forEach($scope.pieData, function(item) {
+			result += item.y + ','
+		});
+
+		return result;
 	};
 });
 
@@ -36,12 +45,22 @@ nvApp.directive('nvPieChart', function(){
 		},
 		link: function(scope,element,attrs) {
 			var svgElem = element.find('svg')[0];
+			var chart;
+			scope.$watch('chartData', function(newVal,oldVal) {
+				if (chart) {
+					d3.select(svgElem)
+						.datum(newVal)
+						.call(chart);
+				}
+			},true);
+			
+			
 			//Call nvd3 to add the chart.
 			nv.addGraph(function() {
 			    var width = attrs.chartWidth,
 			        height = attrs.chartHeight;
 
-			    var chart = nv.models.pieChart()
+			    chart = nv.models.pieChart()
 			        .x(function(d) { return d.key })
 			        .y(function(d) { return d.y })
 			        .color(d3.scale.category10().range())
