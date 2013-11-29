@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="nvApp">
+<head>
+<meta charset="utf-8">
+<link href="/lib/nv.d3.css" rel="stylesheet" type="text/css">
+<script src="/lib/d3.v3.js"></script>
+<script src="/lib/nv.d3.js"></script>
+<script src="/lib/angular.js"></script>
+<script src="app.js"></script>
+<style>
+
+body {
+  overflow-y:scroll;
+}
+
+text {
+  font: 12px sans-serif;
+}
+
+.mypiechart {
+  width: 500px;
+  border: 2px;
+}
+</style>
+</head>
+<body class='with-3d-shadow with-transitions'>
+
+{{'hello'}}
+
+<script>
+
+
+/*nv.addGraph(function() {
+    var width = 500,
+        height = 500;
+
+    var chart = nv.models.pieChart()
+        .x(function(d) { return d.key })
+        .y(function(d) { return d.y })
+        .color(d3.scale.category10().range())
+        .width(width)
+        .height(height);
+
+      d3.select("#test1")
+          .datum(testdata)
+        .transition().duration(1200)
+          .attr('width', width)
+          .attr('height', height)
+          .call(chart);
+
+    chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+
+    return chart;
+});*/
+
+</script>
+</html>
