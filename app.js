@@ -3,7 +3,7 @@ var nvApp = angular.module('nvApp',[]);
 /*
 Controller for the application.
 */
-nvApp.controller('PieChartController', function($scope) {
+nvApp.controller('PieChartController', ['$scope','randomDataService', function($scope,randomDataService) {
 
 	$scope.newValue = 2;
 	$scope.title = "Pie Chart Widget";
@@ -14,7 +14,7 @@ nvApp.controller('PieChartController', function($scope) {
 	    }
 	  ];
 
-	$scope.pieRandomData = [];
+	$scope.pieRandomData = randomDataService();
 
 	$scope.count = 2;
 	$scope.addData = function add(dataValue) {
@@ -24,10 +24,7 @@ nvApp.controller('PieChartController', function($scope) {
 			y: dataValue
 		});
 
-		$scope.pieRandomData.push({
-			key: 'Data ' + $scope.count,
-			y: Math.random()
-		});
+		$scope.pieRandomData = randomDataService();
 
 		$scope.count++;
 	};
@@ -40,7 +37,7 @@ nvApp.controller('PieChartController', function($scope) {
 
 		return result;
 	};
-});
+}]);
 
 //Create a directive for <div nv-pie-chart>
 nvApp.directive('nvPieChart', function(){
@@ -94,5 +91,19 @@ nvApp.directive('nvPieChart', function(){
 nvApp.directive('startFocus', function() {
 	return function(scope,elem,attrs) {
 		elem[0].focus();
+	};
+});
+
+nvApp.factory('randomDataService', function() {
+	return function randomDataService() {
+		var data = [];
+		for(var i =0; i < 7; i++) {
+			data.push({
+				key: 'Series ' + i,
+				y: Math.random()
+			});
+		}
+
+		return data;
 	};
 });
