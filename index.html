@@ -25,7 +25,7 @@ text {
   <h2>{{title}}</h2>
   Enter a new value: <input ng-model="newValue" start-focus>
   <button ng-click="addData(newValue)">Add Value</button><br/>
-  Data items: {{outputData()}}<br/>
+  Data items: {{pieData | arrayPretty}}<br/>
   Current state: <b ng-click="updateState()">{{currentState}}</b>
   <div nv-pie-chart chart-data="pieData" chart-width='700' chart-height='300'></div>
   <div nv-pie-chart chart-data="pieRandomData" chart-width='300' chart-height='300'></div>

@@ -1,6 +1,7 @@
 define(function(require) {
 	var angular = require('angular');
-	var nvApp = angular.module('nvApp',[]);
+	var filtersModule = require('filters');
+	var nvApp = angular.module('nvApp',['nvApp.filters']);
 
 	return nvApp;
 });
