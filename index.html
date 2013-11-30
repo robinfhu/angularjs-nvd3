@@ -7,6 +7,7 @@
 
 body {
   overflow-y:scroll;
+  font-family: Arial;
 }
 
 text {
@@ -17,19 +18,42 @@ text {
   width: 500px;
   border: 2px;
 }
+
+#navigation {
+  font-size: 2em;
+  cursor: pointer;
+  color: darkblue;
+}
+
+
+#navigation a:hover {
+  text-decoration: underline;
+}
 </style>
 </head>
 <body class='with-3d-shadow with-transitions'>
 
-<div ng-controller="PieChartController">
-  <h2>{{title}}</h2>
-  Enter a new value: <input ng-model="newValue" start-focus>
-  <button ng-click="addData(newValue)">Add Value</button><br/>
-  Data items: {{pieData | arrayPretty}}<br/>
-  Current state: <b ng-click="updateState()">{{currentState}}</b>
-  <div nv-pie-chart chart-data="pieData" chart-width='700' chart-height='300'></div>
-  <div nv-pie-chart chart-data="pieRandomData" chart-width='300' chart-height='300'></div>
+<div ng-controller='NavigationController'>
+  <div id='navigation'>
+    <a ng-click="switchTo('pie')">Pie Charts</a> |
+    <a ng-click="switchTo('line')">Line Charts</a>
+  </div>
+  A simple NVD3 app, built with AngularJS
+
+  <div ng-switch on="chartNavType">
+    <div ng-switch-when="pie">
+      <div ng-controller="PieChartController">
+        <div ng-include="'templates/piecharts.html'"></div>
+      </div>
+    </div>
+
+    <div ng-switch-when="line">
+        <div ng-include="'templates/linecharts.html'"></div>
+    </div>
+  </div>
+
 </div>
+
 
 <script src="lib/require.js" data-main="main.js"></script>
 </body>

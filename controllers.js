@@ -46,5 +46,30 @@ define(function(require) {
 			return result;
 		};
 	}]);
+
+	//Controller to handle the line chart widget
+	nvApp.controller('LineChartController', ['$scope', 'stockService',
+		function($scope,stockService) {
+			
+
+			$scope.getNewData = function getNewData() {
+				$scope.lineData1 = [stockService('AAPL', 100,0.09)];
+				$scope.lineData2 = [stockService('AAPL', 100,0.05)];
+			};
+
+			$scope.getNewData();
+
+		}
+	]);
+
+	//Controller to handle app navigation
+	nvApp.controller('NavigationController',function($scope) {
+		$scope.chartNavType = 'pie';
+	
+		$scope.switchTo = function switchTo(nav) {
+			$scope.chartNavType = nav;
+		};
+	});
+
 });
 	
